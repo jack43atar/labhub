@@ -1,8 +1,55 @@
 @extends('layouts.app')
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/store.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+
+
+    <style>
+    .justify {
+        text-align: justify;
+    } .category_boxes p {
+        text-align: center;
+    }
+	 .category_boxes {
+        cursor: pointer;
+    }
+    .sticky{
+        position: fixed;
+        bottom: 15px;
+        right: 35px;
+        width: 60px;
+        text-align: -webkit-right;
+    }
+    .sticky-icon{
+        cursor: pointer;
+        font-size: 48px;
+        color: grey;
+        opacity: 0.7;
+        --fa-border-color:black;
+    }
+    [data-tooltip]:hover:after{
+        content: attr(data-tooltip);
+        position: absolute;
+        top: -50px;
+        right: -20px;
+        font-size: 18px;
+        font-weight: 700;
+        text-align: center;
+    }
+    .small-cart{
+        font-size: 26px;
+        padding-right: 20px;
+        color: black;
+        opacity: 0.7;
+    }
+</style>
 @endsection
 @section('content')
+    <a href="{{route('checkout')}}" class="sticky">
+        <i class="fa fa-shopping-cart fa-rotate-360 sticky sticky-icon"></i>
+    </a>
     <section class="store">
         <div class="second_menu">
             @include('partials.sign_in_log_out')
@@ -136,18 +183,19 @@
                                 </div> -->
                             </div>
                             <div class="footer_right">
-                                <img src="images/hearts.svg" class="hearts">
-                                <div class="hearts_red">
+                                <!-- <img src="images/hearts.svg" class="hearts"> -->
+                                <!-- <div class="hearts_red">
                                     <img src="images/heart.svg">
-                                </div>
-                                <img src="images/sac.svg">
+                                </div> -->
+                                <!-- <a href="#" onclick="addtocart('{{ $item->name }}', '{{ $item->price }}')">
+                                    <i class="fa fa-shopping-cart small-cart"></i>Add Cart
+                                </a> -->
+                                <button type="button" class="btn btn-primary" id="toastbtn"><i class="fa fa-shopping-cart small-cart"></i>Add Cart</button>
+                                
                             </div>
                         </div>
                     </div>
                     @endforeach
-
-
-
                 </div>
             </div>
         </div>
@@ -155,4 +203,26 @@
             {{ $items->links() }}
         </div>
     </section>
+@endsection
+@section('js')
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById("toastbtn").onclick = function() {
+        var toast = '<div class="toast">'+
+                        '<div class="toast-header">'+
+                        '<strong class="me-auto">Toast Header</strong>'+
+                        '<button type="button" class="btn-close" data-bs-dismiss="toast"></button>'+
+                        '</div>'+
+                        '<div class="toast-body">'+
+                        '<p>Some text inside the toast body</p>'+
+                        '</div>'+
+                    '</div>';
+        // $('body').append(toast);
+        var toastElList = [].slice.call(document.querySelectorAll('body'))
+        var toastList = toastElList.map(function(toastEl) {
+            return new bootstrap.Toast(toastEl)
+        })
+        toastList.forEach(toast => toast.show()) 
+    }
+</script>
 @endsection
