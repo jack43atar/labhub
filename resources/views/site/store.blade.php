@@ -2,9 +2,6 @@
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/store.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-
 
     <style>
     .justify {
@@ -191,7 +188,7 @@
                                     <i class="fa fa-shopping-cart small-cart"></i>Add Cart
                                 </a> -->
                                 <button type="button" class="btn btn-primary" id="toastbtn"><i class="fa fa-shopping-cart small-cart"></i>Add Cart</button>
-                                
+                                <div id="toast"></div>
                             </div>
                         </div>
                     </div>
@@ -207,22 +204,22 @@
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    document.getElementById("toastbtn").onclick = function() {
-        var toast = '<div class="toast">'+
-                        '<div class="toast-header">'+
-                        '<strong class="me-auto">Toast Header</strong>'+
-                        '<button type="button" class="btn-close" data-bs-dismiss="toast"></button>'+
-                        '</div>'+
+   document.getElementById('toastbtn').onclick=function(){
+    var toast = '<div class="toast-container top-0 end-0 p-3">'+
+                    '<div class="toast show fade" role="alert" aria-live="assertive" aria-atomic="true">'+
                         '<div class="toast-body">'+
-                        '<p>Some text inside the toast body</p>'+
+                        '<div class="d-flex gap-4">'+
+                            '<span class="text-primary"><i class="fa-solid fa-circle-info fa-lg"></i></span>'+
+                            '<div class="d-flex flex-grow-1 align-items-center">'+
+                            '<span class="fw-semibold">Hello, world! This is a toast message.</span>'+
+                            '<button type="button" class="btn-close btn-close-sm btn-close-black ms-auto" data-bs-dismiss="toast"'+
+                                'aria-label="Close"></button>'+
+                            '</div>'+
                         '</div>'+
-                    '</div>';
-        // $('body').append(toast);
-        var toastElList = [].slice.call(document.querySelectorAll('body'))
-        var toastList = toastElList.map(function(toastEl) {
-            return new bootstrap.Toast(toastEl)
-        })
-        toastList.forEach(toast => toast.show()) 
-    }
+                        '</div>'+
+                    '</div>'+
+                '</div>'
+    document.createElement(toast);
+   }
 </script>
 @endsection
